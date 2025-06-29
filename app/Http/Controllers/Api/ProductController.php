@@ -15,7 +15,7 @@ class ProductController extends Controller
     }
 
     public function getByID($id)
-    {   
+    {
         $product = Product::find($id);
 
         if(!$product){
@@ -42,7 +42,7 @@ class ProductController extends Controller
                 [
                     'message' => 'Some fields are missing or are incorrect, please check the request',
                     'errors' => $valid->errors()
-                ], 200);
+                ], 400);
         }
 
         $product = Product::create([
@@ -60,7 +60,7 @@ class ProductController extends Controller
     }
 
     public function updateByID($id,Request $req)
-    {   
+    {
 
         $product = Product::find($id);
 
@@ -68,14 +68,14 @@ class ProductController extends Controller
              return response()->json(
                 [
                     'message' => 'No product with that ID was found'
-                ], 200
+                ], 400
             );
         }
 
         $valid = Validator::make($req->all(), [
             'name' => 'required',
             'description' => 'required',
-            'code' => 'unique:product',
+            'code' => 'required',
             'status' => 'required'
         ]);
 
@@ -84,13 +84,15 @@ class ProductController extends Controller
                 [
                     'message' => 'Some fields are missing or are incorrect, please check the request',
                     'errors' => $valid->errors()
-                ], 200);
+                ], 400);
         }
 
         $product->name = $req->name;
         $product->description = $req->description;
         $product->code = $req->code;
         $product->status = $req->status;
+        $product->save();
+
 
         return response()->json([
             'message'=>'Product updated',

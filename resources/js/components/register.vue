@@ -23,7 +23,6 @@ const handleRegister = async (event) => {
             console.log(response.status);
             if (response.status === 200) {
                 popUpTriggers.value.successfullRegister = true;
-                localStorage.setItem('name', name.value)
                 localStorage.setItem('email', email.value)
                 localStorage.setItem('token',response.data.token)
                 console.log('Successfully registered');
