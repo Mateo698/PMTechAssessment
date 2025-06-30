@@ -5,8 +5,8 @@
                 <h1>Login</h1>
                 <input type="email" id="email" name="email" placeholder="Email" class="form-control" v-model="email" />
                 <input type="password" id="password" name="password" placeholder="Password" class="form-control" v-model="password" />
-                <button v-on:click="handleLogin" type="submit" class="btn btn-primary">Login</button>
-                <button v-on:click="handleRegister" class="btn btn-secondary">Register</button>
+                <button @click="handleLogin" type="submit" class="btn btn-primary">Login</button>
+                <button @click="handleRegister" class="btn btn-secondary">Register</button>
             </form>
         </div>
         <Popup v-if="errorPopup" :HandleClose="closePopup">
